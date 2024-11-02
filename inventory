@@ -1,0 +1,20 @@
+x1
+x2
+172.168.1.2
+172.168.1.3
+
+[frontend]
+frontend1.dev.raiyan-m.online
+frontend2.dev.raiyan-m.online
+
+[catalogue]
+catalogue1.dev.raiyan-m.online
+catalogue2.dev.raiyan-m.online
+
+# ansible -i inventory <group_name>
+# default group name is all
+# ansible -i inventory frontend
+
+
+# in clouds instance change frequently, hence ansible static inventory does not make sense and thus we have dynamic inventory
+

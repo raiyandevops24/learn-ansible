@@ -9,6 +9,9 @@
       ansible.builtin.debug:
         msg: "{{ URL }} is the myURL, URL1 - {{ URL1 }}"
 
+        vars:
+          url: tasks.example.com
+
 
 # same like shell you care accessing variable with prefix $, here variable will be under {{ }}
 # if the value starts with variable, then it requires quotes and we can use any single or double quotes.
@@ -16,7 +19,58 @@
 
 # variable precedence
 # 1. CLI - e variable
-# 2. roles vars
-# 3. vars_files
-# 4. vars - from play book
+# 2. tasks
+# 3. roles vars
+# 4. vars_files
+# 5. vars - from play book
 # n. roles_defaults
+
+
+# variable types
+# 1. simple variable
+# 2. list
+# 3. Dictionary/Map
+
+- name: Variable type demo
+  hosts: localhosts
+  vars:
+    class: devops
+    timings:
+      - 6am
+      - 7am
+    trainers:
+      6am: John
+      7am: Peter
+
+  tasks:
+    - name: Print
+      ansible.builtin.debug:
+        msg: "{{ class }} - {{ timings[0] }} - {{ trainers['6am'] }}"
+
+
+- name: Variable Data Types
+  hosts: localhost
+  vars:
+    number1: 10
+    number2: 10.1
+    string1: abc
+    string2: abcxyz123
+    boolean1: yes
+    boolean2: no
+    boolean3: true
+    boolean4: false
+
+  tasks:
+    - name: Print
+      ansible.builtin.debug:
+        msg: ""
+
+
+- name: Retrieve the output from the previous tasks and store in variable
+  hosts: localhost
+  tasks:
+    - ansible.builtin.shell: uptime
+      register: out
+
+    - ansible.builtin.debug:
+        msg: "{{ out }}"
