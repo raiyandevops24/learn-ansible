@@ -1,0 +1,9 @@
+- name: Error Handling
+  hosts: localhost
+  tasks:
+    - shell: id roboshop
+      register: out
+      ignore_errors: yes
+
+    - debug:
+        msg: User Details - {{ out.stdout }}
